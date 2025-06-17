@@ -16,7 +16,7 @@ const server = new ApolloServer({
     schema,
     resolvers: {
       Query: {
-        listZellerCustomers: () => listZellerCustomers,
+        listZellerCustomers: (_,args) => listZellerCustomers(_,args),
         getZellerCustomer: () => getZellerCustomer
       },
     },
