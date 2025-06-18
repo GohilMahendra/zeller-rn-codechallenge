@@ -1,5 +1,5 @@
 import { MockedResponse } from '@apollo/client/testing';
-import { LIST_ZELLER_CUSTOMERS } from '../src/graphql/user/queries';
+import { LIST_ZELLER_CUSTOMERS } from '../../src/graphql/user/queries';
 
 export const mockCustomers = [
   {
@@ -88,7 +88,6 @@ export const errorQueryMock: MockedResponse[] = [
       variables: {
         limit: 10,
         filter: {
-          name: { contains: 'jay' },
           role: { eq: 'Admin' },
         },
       },

@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { MockedProvider } from '@apollo/client/testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { useZellerCustomers } from '../../src/hooks/useZellerCustomers';
 import {
   errorQueryMock,
@@ -8,28 +8,19 @@ import {
   searchQuaryMock,
 } from '../mocks';
 
-const wrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={mocks} addTypename={false}>
-    {children}
-  </MockedProvider>
-);
+export const createMockWrapper = (mocks: MockedResponse[]) => {
+  return ({ children }: { children: React.ReactNode }) => (
+    <MockedProvider mocks={mocks} addTypename={false}>
+      {children}
+    </MockedProvider>
+  );
+};
 
-const searchWrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={searchQuaryMock} addTypename={false}>
-    {children}
-  </MockedProvider>
-);
-const errorWrapper = ({ children }: { children: React.ReactNode }) => (
-  <MockedProvider mocks={errorQueryMock} addTypename={false}>
-    {children}
-  </MockedProvider>
-);
-
-describe('useZellerCustomers hook', () => {
+describe('useZellerCustomers hook....', () => {
   it('fetches the customers', async () => {
     const { waitForNextUpdate, result } = renderHook(
       () => useZellerCustomers(),
-      { wrapper },
+      { wrapper: createMockWrapper(mocks) },
     );
 
     await waitForNextUpdate();
@@ -41,7 +32,7 @@ describe('useZellerCustomers hook', () => {
   it('fetches the customers with Manager Role', async () => {
     const { waitForNextUpdate, result } = renderHook(
       () => useZellerCustomers(),
-      { wrapper: searchWrapper },
+      { wrapper: createMockWrapper([...mocks, ...searchQuaryMock]) },
     );
 
     await waitForNextUpdate();
@@ -51,7 +42,6 @@ describe('useZellerCustomers hook', () => {
     });
 
     await waitForNextUpdate();
-
     expect(result.current.customers).toEqual(
       mockCustomers.filter(item => item.name.includes('jay')),
     );
@@ -62,13 +52,15 @@ describe('useZellerCustomers hook', () => {
     const { result, waitForNextUpdate } = renderHook(
       () => useZellerCustomers(),
       {
-        wrapper: errorWrapper,
+        wrapper: createMockWrapper(errorQueryMock),
       },
     );
 
     await waitForNextUpdate();
 
-    expect(result.current.error).toBeDefined();
+    expect(result.current.error?.message).toBe(
+      'Something went wrong fetching customers',
+    );
     expect(result.current.loading).toBeFalsy();
   });
 });

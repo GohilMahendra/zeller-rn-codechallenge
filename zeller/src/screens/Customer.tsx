@@ -13,30 +13,12 @@ import Header from '../components/user/Header';
 const Customer = () => {
   const navigation =
     useNavigation<NavigationProp<RootStackParams, 'Customer'>>();
-  // const route = useRoute<RouteProp<RootStackParams, 'Customer'>>();
-  const route = {
-    params: {
-      user: {
-        id: '1',
-        name: 'Mahendra',
-        email: 'mahendra@example.com',
-        role: 'Admin',
-      },
-    },
-  };
-
-  const [user, setUser] = useState<ZellerCustomer>();
+  const route = useRoute<RouteProp<RootStackParams, 'Customer'>>();
+  const user = route.params.user;
 
   const onBackPress = () => {
     navigation.goBack();
   };
-
-  useEffect(() => {
-    if (route.params.user) {
-      setUser(route.params.user);
-    }
-  }, []);
-
   return (
     <SafeAreaView style={styles.container}>
       <Header

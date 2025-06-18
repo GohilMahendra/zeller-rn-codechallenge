@@ -25,7 +25,7 @@ describe('RoleSelector Component....', () => {
     expect(adminButton).toBeTruthy();
     expect(managerButton).toBeTruthy();
 
-    // learned new stuff, always used text children but from now toHaveTextContent
+    // learned new stuff, always used text children but from now on will use toHaveTextContent
     expect(
       screen.getAllByTestId(`${testID}_txtSelectdRole`)[0],
     ).toHaveTextContent('Admin');

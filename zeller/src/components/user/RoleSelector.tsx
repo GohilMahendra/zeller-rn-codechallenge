@@ -8,6 +8,10 @@ interface RoleSelectorProps {
   selectedRole: Role;
   onSelectRole: (role: Role) => void;
 }
+// further can be extended if new Roles added
+// its following open/closed principal here
+// could have created fully agnostic selector too
+// but here it had specific job as component name suggests RoleSelecter
 
 const ROLES: Role[] = ['Admin', 'Manager'];
 

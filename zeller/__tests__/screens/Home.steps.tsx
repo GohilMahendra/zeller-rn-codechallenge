@@ -1,9 +1,10 @@
 import { fireEvent, render } from '@testing-library/react-native';
-import { useZellerCustomers } from '../../src/hooks/useZellerCustomers';
-import { mockCustomers, mocks, searchQuaryMock } from '../mocks';
+import { mockCustomers } from '../mocks';
 import Home from '../../src/screens/Home';
-import { MockedProvider } from '@apollo/client/testing';
 import { Role } from '../../src/types/models/user';
+
+// I use prefix ID mechenism where each component have mendatory testID
+// the reason is my all component are free from logic and agnostic from state
 
 const mockNavigate = jest.fn();
 
@@ -18,6 +19,11 @@ jest.mock('@react-navigation/native', () => {
 });
 
 const mockUseZellerCustomers = jest.fn();
+
+// mocking directly hook as i am lazy,
+// can be done same with mockProvider passing mock data
+// but would be repitative as already done at hook level
+// for E2E test i guess that would be better if you dont want to mess with DB
 
 jest.mock('../../src/hooks/useZellerCustomers', () => ({
   __esModule: true,
