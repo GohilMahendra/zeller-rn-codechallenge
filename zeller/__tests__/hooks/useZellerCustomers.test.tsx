@@ -1,87 +1,12 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { useZellerCustomers } from '../../src/hooks/useZellerCustomers';
-import { LIST_ZELLER_CUSTOMERS } from '../../src/graphql/user/queries';
-
-const mockCustomers = [
-  {
-    id: '1',
-    name: 'mahendra',
-    email: 'mahendra@example.com',
-    role: 'Admin',
-  },
-  {
-    id: '2',
-    name: 'akash',
-    email: 'akash@example.com',
-    role: 'Manager',
-  },
-  {
-    id: '3',
-    name: 'mars',
-    email: 'mars@example.com',
-    role: 'Manager',
-  },
-  {
-    id: '4',
-    name: 'jay',
-    email: 'jay@example.com',
-    role: 'Admin',
-  },
-  {
-    id: '5',
-    name: 'bob',
-    email: 'bob@example.com',
-    role: 'Admin',
-  },
-];
-
-const mocks: MockedResponse[] = [
-  {
-    request: {
-      query: LIST_ZELLER_CUSTOMERS,
-      variables: {
-        limit: 10,
-        filter: {
-          role: { eq: 'Admin' },
-        },
-      },
-    },
-    result: {
-      data: {
-        listZellerCustomers: {
-          items: mockCustomers,
-          nextToken: null,
-          __typename: 'ZellerCustomerConnection',
-        },
-      },
-    },
-  },
-];
-
-const searchQuaryMock: MockedResponse[] = [
-  {
-    request: {
-      query: LIST_ZELLER_CUSTOMERS,
-      variables: {
-        limit: 10,
-        filter: {
-          name: { contains: 'jay' },
-          role: { eq: 'Admin' },
-        },
-      },
-    },
-    result: {
-      data: {
-        listZellerCustomers: {
-          items: mockCustomers.filter(item => item.name.includes('jay')),
-          nextToken: null,
-          __typename: 'ZellerCustomerConnection',
-        },
-      },
-    },
-  },
-];
+import {
+  errorQueryMock,
+  mockCustomers,
+  mocks,
+  searchQuaryMock,
+} from '../mocks';
 
 const wrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={mocks} addTypename={false}>
@@ -91,6 +16,11 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 
 const searchWrapper = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={searchQuaryMock} addTypename={false}>
+    {children}
+  </MockedProvider>
+);
+const errorWrapper = ({ children }: { children: React.ReactNode }) => (
+  <MockedProvider mocks={errorQueryMock} addTypename={false}>
     {children}
   </MockedProvider>
 );
@@ -125,6 +55,20 @@ describe('useZellerCustomers hook', () => {
     expect(result.current.customers).toEqual(
       mockCustomers.filter(item => item.name.includes('jay')),
     );
+    expect(result.current.loading).toBeFalsy();
+  });
+
+  it('Handle Error gracefully if Fails to load', async () => {
+    const { result, waitForNextUpdate } = renderHook(
+      () => useZellerCustomers(),
+      {
+        wrapper: errorWrapper,
+      },
+    );
+
+    await waitForNextUpdate();
+
+    expect(result.current.error).toBeDefined();
     expect(result.current.loading).toBeFalsy();
   });
 });
