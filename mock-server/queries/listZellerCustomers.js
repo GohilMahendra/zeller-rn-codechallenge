@@ -32,9 +32,10 @@ export const MOCK_CUSTOMERS = [
   
     if (filter?.role?.eq) {
       result = result.filter((c) => c.role === filter.role.eq);
-    } else if (filter?.role?.contains) {
+    } 
+    if (filter?.name?.contains) {
       result = result.filter((c) =>
-        c.role.toLowerCase().includes(filter.role.contains.toLowerCase())
+        c.name.toLowerCase().includes(filter.name.contains.toLowerCase())
       );
     }
   
