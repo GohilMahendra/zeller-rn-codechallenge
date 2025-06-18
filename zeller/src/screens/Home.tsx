@@ -18,7 +18,6 @@ import RoleSelector from '../components/user/RoleSelector';
 
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams, 'Home'>>();
-  console.log(CustomerCard);
   const {
     customers,
     error,
