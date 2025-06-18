@@ -35,7 +35,11 @@ const Home = () => {
 
   const renderCustomer = (item: ZellerCustomer, index: number) => {
     return (
-      <CustomerCard onPress={customer => onPressCard(customer)} item={item} />
+      <CustomerCard
+        testID={`UserItem${item.id}`}
+        onPress={customer => onPressCard(customer)}
+        item={item}
+      />
     );
   };
 

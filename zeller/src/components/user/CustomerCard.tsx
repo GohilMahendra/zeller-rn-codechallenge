@@ -3,21 +3,32 @@ import { ZellerCustomer } from '../../types/models/user';
 import { COLORS } from '../../lib/constants';
 
 interface CustomerCardProps {
+  testID: string;
   item: ZellerCustomer;
   onPress: (customer: ZellerCustomer) => void;
 }
 
 const CustomerCard = (props: CustomerCardProps) => {
-  const { item, onPress } = props;
+  const { item, onPress, testID } = props;
   const titleText = item?.name?.charAt(0);
   return (
-    <TouchableOpacity onPress={() => onPress(item)} style={styles.container}>
+    <TouchableOpacity
+      testID={`${testID}_btnNavigate`}
+      onPress={() => onPress(item)}
+      style={styles.container}
+    >
       <View style={styles.titleTextContainer}>
-        <Text style={styles.txtTitle}>{titleText}</Text>
+        <Text testID={`${testID}_txtTitle`} style={styles.txtTitle}>
+          {titleText}
+        </Text>
       </View>
       <View style={styles.infoContainer}>
-        <Text style={styles.txtName}>{item?.name}</Text>
-        <Text style={styles.txtRole}>{item?.role}</Text>
+        <Text testID={`${testID}_txtName`} style={styles.txtName}>
+          {item?.name}
+        </Text>
+        <Text testID={`${testID}_txtRole`} style={styles.txtRole}>
+          {item?.role}
+        </Text>
       </View>
     </TouchableOpacity>
   );
