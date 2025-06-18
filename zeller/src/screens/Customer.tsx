@@ -11,9 +11,20 @@ import { ZellerCustomer } from '../types/models/user';
 import Header from '../components/user/Header';
 
 const Customer = () => {
-  const route = useRoute<RouteProp<RootStackParams, 'Customer'>>();
   const navigation =
     useNavigation<NavigationProp<RootStackParams, 'Customer'>>();
+  // const route = useRoute<RouteProp<RootStackParams, 'Customer'>>();
+  const route = {
+    params: {
+      user: {
+        id: '1',
+        name: 'Mahendra',
+        email: 'mahendra@example.com',
+        role: 'Admin',
+      },
+    },
+  };
+
   const [user, setUser] = useState<ZellerCustomer>();
 
   const onBackPress = () => {
@@ -24,7 +35,7 @@ const Customer = () => {
     if (route.params.user) {
       setUser(route.params.user);
     }
-  }, [route.params.user]);
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,9 +46,15 @@ const Customer = () => {
       />
       {user && (
         <View style={styles.detailsContainer}>
-          <Text style={styles.txtName}>{user.name}</Text>
-          <Text style={styles.txtRole}>{user.role}</Text>
-          <Text style={styles.txtRole}>{user.email}</Text>
+          <Text testID={'Customer_txtName'} style={styles.txtName}>
+            {user.name}
+          </Text>
+          <Text testID={'Customer_txtRole'} style={styles.txtRole}>
+            {user.role}
+          </Text>
+          <Text testID={'Customer_txtEmail'} style={styles.txtRole}>
+            {user.email}
+          </Text>
         </View>
       )}
     </SafeAreaView>
