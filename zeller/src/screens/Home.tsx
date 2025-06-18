@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import {
   FlatList,
   TextInput,
@@ -7,15 +8,17 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { useCallback } from 'react';
+
 import { ZellerCustomer } from '../types/models/user';
 import { useZellerCustomers } from '../hooks/useZellerCustomers';
 import CustomerCard from '../components/user/CustomerCard';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../types/navigation';
 import RoleSelector from '../components/user/RoleSelector';
+
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams, 'Home'>>();
+  console.log(CustomerCard);
   const {
     customers,
     error,
@@ -47,6 +50,7 @@ const Home = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <TextInput
+          testID={`Home_inputSearch`}
           value={searchTerm}
           onChangeText={text => setSearchTerm(text)}
           placeholder={'Search here...'}
@@ -64,8 +68,13 @@ const Home = () => {
         <Text style={styles.txtUserRole}>{selectedRole} Users</Text>
       </View>
       <FlatList
+        testID={'Home_ListCustomers'}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={() => refetch()} />
+          <RefreshControl
+            testID={'Home_ListCustomersRefresh'}
+            refreshing={loading}
+            onRefresh={() => refetch()}
+          />
         }
         data={customers}
         style={styles.listCustomers}
