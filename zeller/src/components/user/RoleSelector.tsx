@@ -20,6 +20,7 @@ const RoleSelector = (props: RoleSelectorProps) => {
       </View>
       {ROLES.map((role, index) => (
         <TouchableOpacity
+          key={`${testID}${role}_btnSelectRole`}
           testID={`${testID}${role}_btnSelectRole`}
           onPress={() => onSelectRole(role)}
           style={[

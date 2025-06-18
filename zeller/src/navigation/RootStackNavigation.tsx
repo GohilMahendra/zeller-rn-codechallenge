@@ -15,7 +15,11 @@ const RootStackNavigation = () => {
           options={{ headerShown: false }}
           name={'Home'}
         />
-        <RootStack.Screen component={Customer} name={'Customer'} />
+        <RootStack.Screen
+          component={Customer}
+          options={{ headerShown: false }}
+          name={'Customer'}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );

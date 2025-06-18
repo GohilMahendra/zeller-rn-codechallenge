@@ -5,6 +5,7 @@ import {
   View,
   RefreshControl,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import { useCallback } from 'react';
 import { ZellerCustomer } from '../types/models/user';
@@ -39,7 +40,7 @@ const Home = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <TextInput
           value={searchTerm}
@@ -67,7 +68,7 @@ const Home = () => {
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => renderCustomer(item, index)}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 export default Home;

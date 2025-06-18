@@ -1,12 +1,24 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { RootStackParams } from '../types/navigation';
 import { useEffect, useState } from 'react';
 import { ZellerCustomer } from '../types/models/user';
+import Header from '../components/user/Header';
 
 const Customer = () => {
   const route = useRoute<RouteProp<RootStackParams, 'Customer'>>();
+  const navigation =
+    useNavigation<NavigationProp<RootStackParams, 'Customer'>>();
   const [user, setUser] = useState<ZellerCustomer>();
+
+  const onBackPress = () => {
+    navigation.goBack();
+  };
 
   useEffect(() => {
     if (route.params.user) {
@@ -15,15 +27,20 @@ const Customer = () => {
   }, [route.params.user]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <Header
+        testID={'Customer_Header'}
+        title={user?.name}
+        onBackPress={() => onBackPress()}
+      />
       {user && (
-        <View>
+        <View style={styles.detailsContainer}>
           <Text style={styles.txtName}>{user.name}</Text>
           <Text style={styles.txtRole}>{user.role}</Text>
           <Text style={styles.txtRole}>{user.email}</Text>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 export default Customer;
@@ -31,8 +48,11 @@ export default Customer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  detailsContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   txtName: { fontSize: 24 },
   txtRole: { fontSize: 18 },
