@@ -1,4 +1,3 @@
-// jest.config.js
 module.exports = {
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/__tests__/jest-setup.js'],
@@ -8,7 +7,9 @@ module.exports = {
    transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },
-  // testMatch: ['**/__tests__/**/*.(ts|tsx)'],
+   testMatch: [
+    '**/?(*.)+(steps).[jt]s?(x)', 
+  ],
   
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
    testEnvironment: 'node',
