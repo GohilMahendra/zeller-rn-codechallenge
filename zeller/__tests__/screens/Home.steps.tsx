@@ -59,6 +59,9 @@ describe('Home component..', () => {
     const screen = render(<Home />);
     const input = screen.getByTestId('Home_inputSearch');
     fireEvent(input, 'changeText', 'jay');
+
+    const listItem = screen.getByTestId('UserItem4_txtName');
+    expect(listItem).toHaveTextContent('jay');
   });
   it('I can change the role and will get result', async () => {
     mockUseZellerCustomers.mockReturnValueOnce({
