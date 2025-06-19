@@ -27,16 +27,7 @@ const mockUseZellerCustomers = jest.fn();
 
 jest.mock('../../src/hooks/useZellerCustomers', () => ({
   __esModule: true,
-  useZellerCustomers: () => ({
-    customers: mockCustomers,
-    loading: false,
-    error: undefined,
-    selectedRole: 'Admin',
-    setSelectedRole: jest.fn(),
-    searchTerm: '',
-    setSearchTerm: jest.fn(),
-    refetch: jest.fn(),
-  }),
+  useZellerCustomers: () => mockUseZellerCustomers(),
 }));
 
 describe('Home component..', () => {
@@ -145,5 +136,39 @@ describe('Home component..', () => {
     fireEvent(refreshList, 'refresh');
     const list_items = screen.getByTestId('Home_ListCustomers');
     expect(list_items.props.data.length).toBe(mockCustomers.length);
+  });
+
+  it('I can get Empty component if no data is coming gracefully', () => {
+    mockUseZellerCustomers.mockReturnValueOnce({
+      customers: [],
+      loading: false,
+      error: undefined,
+      selectedRole: 'Admin' as Role,
+      setSelectedRole: jest.fn(),
+      searchTerm: '',
+      setSearchTerm: jest.fn(),
+      refetch: jest.fn(),
+    });
+
+    const screen = render(<Home />);
+    const empty_text = screen.getByTestId('Home_ListEmpty_txtEmptyText');
+    expect(empty_text).toHaveTextContent('No Users Found');
+  });
+
+  it('I can get not get Empty component if loader is spinning', () => {
+    mockUseZellerCustomers.mockReturnValueOnce({
+      customers: [],
+      loading: true,
+      error: undefined,
+      selectedRole: 'Admin' as Role,
+      setSelectedRole: jest.fn(),
+      searchTerm: '',
+      setSearchTerm: jest.fn(),
+      refetch: jest.fn(),
+    });
+
+    const screen = render(<Home />);
+    const empty_text = screen.queryByTestId('Home_ListEmpty_txtEmptyText');
+    expect(empty_text).toBeNull();
   });
 });

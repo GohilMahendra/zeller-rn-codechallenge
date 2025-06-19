@@ -57,6 +57,7 @@ export default RoleSelector;
 const styles = StyleSheet.create({
   parent: {
     borderBottomWidth: 0.7,
+    borderColor: COLORS.textSecondary,
   },
   headerContainer: {
     padding: 10,

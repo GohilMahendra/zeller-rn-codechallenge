@@ -79,7 +79,9 @@ const Home = () => {
             onRefresh={() => refetch()}
           />
         }
-        ListEmptyComponent={() => !loading && <CustomerEmptyList />}
+        ListEmptyComponent={() =>
+          !loading ? <CustomerEmptyList testID={'Home_ListEmpty'} /> : null
+        }
         data={customers}
         style={styles.listCustomers}
         keyExtractor={item => item.id}

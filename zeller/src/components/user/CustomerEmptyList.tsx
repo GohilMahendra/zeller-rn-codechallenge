@@ -1,10 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { COLORS } from '../../lib/constants';
 
-const CustomerEmptyList = () => {
+interface CustomerEmptyListProps {
+  testID: string;
+}
+
+const CustomerEmptyList = (props: CustomerEmptyListProps) => {
+  const { testID } = props;
   return (
-    <View style={styles.container}>
-      <Text style={styles.txtUserNotFound}>No Users Found</Text>
+    <View testID={`${testID}_container`} style={styles.container}>
+      <Text testID={`${testID}_txtEmptyText`} style={styles.txtUserNotFound}>
+        No Users Found
+      </Text>
     </View>
   );
 };
