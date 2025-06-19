@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
   },
   listCustomers: {
     flex: 1,
+    paddingBottom: 150,
   },
   roleTextContainer: {
     margin: 10,
