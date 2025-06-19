@@ -40,6 +40,10 @@ Jest + Testing Library
 
 React Navigation
 
+## 🔧 Note:
+
+I wasn’t able to fetch data from the provided AWS GraphQL endpoint, so I hooked it up to the mock server and added custom resolvers. You can switch to real API usage by updating the GraphQL client config — the rest will just work.
+
 ## 📷 UI Screenshots
 
 <table>

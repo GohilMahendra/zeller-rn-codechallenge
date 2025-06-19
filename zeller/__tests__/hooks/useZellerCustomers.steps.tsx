@@ -7,6 +7,7 @@ import {
   mocks,
   searchQuaryMock,
 } from '../mocks';
+import * as apollo from '@apollo/client';
 
 export const createMockWrapper = (mocks: MockedResponse[]) => {
   return ({ children }: { children: React.ReactNode }) => (
