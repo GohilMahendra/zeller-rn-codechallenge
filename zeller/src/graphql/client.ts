@@ -5,9 +5,15 @@ import {
   InMemoryCache,
   DefaultOptions,
 } from '@apollo/client';
+import { Platform } from 'react-native';
+
+const LINK_URI =
+  Platform.OS == 'android'
+    ? 'http://10.0.2.2:9002/graphql'
+    : 'http://localhost:9002/graphql';
 
 const httpLink = new HttpLink({
-  uri: 'http://10.0.2.2:9002/graphql',
+  uri: LINK_URI,
 });
 
 const defaultOptions: DefaultOptions = {
