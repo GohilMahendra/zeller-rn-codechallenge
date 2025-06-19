@@ -2,7 +2,7 @@
 
 A React Native app to display and filter a list of users using GraphQL. This project was built as part of a coding interview assessment.
 
-# ✨ Features
+## ✨ Features
 
 ### 🔍 User Filtering
 
@@ -28,7 +28,7 @@ Stack navigation implemented using React Navigation (Home, Customer screens).
 
 Full test coverage using @testing-library/react-native and Jest.
 
-# 🛠 Tech Stack
+## 🛠 Tech Stack
 
 React Native
 
@@ -40,7 +40,7 @@ Jest + Testing Library
 
 React Navigation
 
-# 📷 UI Screenshots
+## 📷 UI Screenshots
 
 <table>
   <tr>
