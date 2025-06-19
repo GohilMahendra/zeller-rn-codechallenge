@@ -9,6 +9,7 @@ import { RootStackParams } from '../types/navigation';
 import { useEffect, useState } from 'react';
 import { ZellerCustomer } from '../types/models/user';
 import Header from '../components/user/Header';
+import { COLORS } from '../lib/constants';
 
 const Customer = () => {
   const navigation =
@@ -47,6 +48,7 @@ export default Customer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   detailsContainer: {
     flex: 1,

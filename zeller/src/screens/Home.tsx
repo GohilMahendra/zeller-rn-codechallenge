@@ -15,6 +15,9 @@ import CustomerCard from '../components/user/CustomerCard';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParams } from '../types/navigation';
 import RoleSelector from '../components/user/RoleSelector';
+import CustomerEmptyList from '../components/user/CustomerEmptyList';
+import { COLORS } from '../lib/constants';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParams, 'Home'>>();
@@ -48,6 +51,7 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
+        <Icon name="search" size={24} color={COLORS.textPrimary} />
         <TextInput
           testID={`Home_inputSearch`}
           value={searchTerm}
@@ -75,6 +79,7 @@ const Home = () => {
             onRefresh={() => refetch()}
           />
         }
+        ListEmptyComponent={() => !loading && <CustomerEmptyList />}
         data={customers}
         style={styles.listCustomers}
         keyExtractor={item => item.id}
@@ -88,14 +93,20 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   headerContainer: {
     width: '100%',
+    alignItems: 'center',
+    flexDirection: 'row',
     padding: 10,
-    borderWidth: 1,
+    borderBottomWidth: 0.7,
     height: 70,
   },
-  txtInput: { fontSize: 18 },
+  txtInput: {
+    marginLeft: 10,
+    fontSize: 18,
+  },
   listCustomers: {
     flex: 1,
   },

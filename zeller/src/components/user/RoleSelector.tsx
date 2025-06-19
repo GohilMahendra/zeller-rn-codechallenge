@@ -56,7 +56,7 @@ export default RoleSelector;
 
 const styles = StyleSheet.create({
   parent: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.7,
   },
   headerContainer: {
     padding: 10,
@@ -76,6 +76,6 @@ const styles = StyleSheet.create({
   txtRole: {
     fontSize: 16,
     marginLeft: 15,
-    fontWeight: 'bold',
+    fontWeight: '600',
   },
 });

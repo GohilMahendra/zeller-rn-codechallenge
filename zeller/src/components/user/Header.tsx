@@ -34,7 +34,7 @@ export default Header;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
-    height: 50,
+    height: 60,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: 0.5,
